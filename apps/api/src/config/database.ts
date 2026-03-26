@@ -5,8 +5,16 @@ import * as schema from '../db/schema';
 
 const CONNECTION_STRING = process.env.DATABASE_URL!;
 
+const isProduction = process.env.NODE_ENV === 'production';
+const useSSL = isProduction || CONNECTION_STRING.includes('sslmode=require');
+
 const client = postgres(CONNECTION_STRING, {
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  ssl: useSSL ? 'require' : false,
+  prepare: useSSL ? false : true,
+  max: 10,
+  idle_timeout: 20,
+  max_lifetime: 60 * 30,
+  connect_timeout: 10,
 });
 
 export const db = drizzle(client, { schema });

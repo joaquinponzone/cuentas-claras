@@ -21,12 +21,14 @@ const loginSchema = z.object({
 type Variables = { user: typeof users.$inferSelect };
 const authRoutes = new Hono<{ Variables: Variables }>();
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const COOKIE_OPTIONS = {
   httpOnly: true,
   path: '/',
-  sameSite: 'Lax' as const,
+  sameSite: isProduction ? 'None' as const : 'Lax' as const,
   maxAge: 60 * 60 * 24,
-  secure: process.env.NODE_ENV === 'production',
+  secure: isProduction,
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -19,6 +19,7 @@
   "dependencies": {
     "@cuentas-claras/shared": "workspace:*",
     "@hono/zod-validator": "0.7.6",
+    "bcryptjs": "^3.0.3",
     "drizzle-orm": "0.45.1",
     "hono": "4.12.5",
     "jose": "6.2.0",
@@ -28,6 +29,7 @@
     "zod": "^4.0.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^3.0.0",
     "@types/bun": "1.3.10",
     "drizzle-kit": "0.31.9",
     "typescript": "^5.8.0"
