@@ -6,3 +6,5 @@ dist
 pg_data
 .DS_Store
 *.log
+# build artifac
+apps/api/api/
