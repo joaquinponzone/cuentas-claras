@@ -1,0 +1,38 @@
+---
+description: Cómo mantener el worklog del proyecto
+globs: [".worklog/**"]
+alwaysApply: false
+---
+
+# Worklog — Convenciones
+
+## Estructura
+
+```
+.worklog/
+  YYYY-MM-DD/
+    tema-en-kebab-case.md   # una entrada por tema
+```
+
+## Formato de cada entrada
+
+```markdown
+# [Título descriptivo] (YYYY-MM-DD)
+
+## Objetivo
+## Archivos creados      ← omitir si no aplica
+## Archivos modificados  ← omitir si no aplica
+## Decisiones técnicas   ← omitir si no aplica
+## Resultado
+## Próxima fase
+```
+
+## Cuándo actualizar
+Siempre al terminar una sesión de trabajo significativa: nueva feature, bugfix relevante,
+refactor, cambio de dependencias, decisión de arquitectura.
+
+## Tono y estilo
+- Español técnico
+- Enfocarse en el "por qué" sobre el "qué"
+- Incluir salida de tests/typecheck como evidencia en `## Resultado`
+- Si el trabajo abarca múltiples temas, un archivo por tema

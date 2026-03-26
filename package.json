@@ -1,0 +1,27 @@
+{
+  "name": "cuentas-claras",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "test": "turbo test",
+    "test:api": "bun run --filter @cuentas-claras/api test",
+    "kill:api": "lsof -ti :4000 | xargs kill -9 2>/dev/null || true",
+    "db:up": "docker compose up postgres -d",
+    "db:down": "docker compose stop postgres",
+    "db:logs": "docker compose logs postgres -f",
+    "typecheck": "turbo typecheck",
+    "lint": "turbo lint",
+    "db:generate": "bun run --filter @cuentas-claras/api db:generate",
+    "db:migrate": "bun run --filter @cuentas-claras/api db:migrate",
+    "db:seed": "bun run --filter @cuentas-claras/api db:seed",
+    "db:seed:test": "bun run --filter @cuentas-claras/api db:seed:test",
+    "db:seed:test:clean": "bun run --filter @cuentas-claras/api db:seed:test:clean",
+    "db:studio": "bun run --filter @cuentas-claras/api db:studio"
+  },
+  "devDependencies": {
+    "turbo": "2.8.14"
+  },
+  "packageManager": "bun@1.2.5"
+}

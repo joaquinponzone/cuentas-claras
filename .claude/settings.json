@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun:*)",
+      "Bash(docker compose:*)",
+      "Bash(docker:*)",
+      "Bash(git:*)",
+      "Bash(gh:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(date:*)",
+      "Bash(cd:*)"
+    ]
+  }
+}

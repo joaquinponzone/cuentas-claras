@@ -1,0 +1,76 @@
+---
+description: Reglas generales del proyecto Cuentas Claras
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Cuentas Claras — Cursor Rules
+
+## Proyecto
+Sistema de gestión de finanzas personales/familiares. Turborepo monorepo con Bun workspaces.
+
+## Stack
+- **Runtime**: Bun (no Node.js — usar `bun` en todos los comandos)
+- **API**: Hono + Drizzle ORM + postgres-js (port 4000)
+- **Web**: Vite + React 19 + TanStack Query v5 (port 3000)
+- **Styles**: Tailwind CSS v4 con `@tailwindcss/postcss`
+- **Auth**: JWT en HttpOnly cookie con `jose`
+- **DB**: PostgreSQL 16 vía Docker
+- **Tests**: `bun test` (solo en API por ahora)
+
+## Reglas Críticas
+
+### Zod
+- Todo el monorepo usa Zod v4 (`^4.0.0`) — shared, api, y web.
+- Definir schemas de validación localmente en cada Hono route (separación de responsabilidades).
+
+### Tailwind v4
+- `postcss.config.js` → `@tailwindcss/postcss` (no `tailwindcss`)
+- `index.css` → `@import "tailwindcss"` + `@theme {}` para custom tokens
+- No crear `tailwind.config.ts`
+
+### Bun test
+- Flags siempre DESPUÉS del subcomando: `bun test --env-file .env`
+- Nunca: `bun --env-file .env test`
+
+### Base de datos
+- Incluir siempre: `ssl: NODE_ENV === 'production' ? { rejectUnauthorized: false } : false`
+
+## Convenciones de Código
+
+- Archivos: `kebab-case.ts`
+- Variables/funciones: `camelCase`
+- Componentes/Types/Interfaces: `PascalCase`
+- Alias `@/` → `./src/` en ambas apps
+- Tipos compartidos en `packages/shared/src/types/`
+- No usar `any` — tipar todo correctamente
+- No copiar código de `refe/` — extraer patrones y adaptar
+
+## Estructura de Apps
+
+```
+apps/api/src/
+  index.ts       # Entry: exports { port, fetch: app.fetch }
+  server.ts      # Hono app
+  config/        # DB, logger
+  db/            # schema.ts (source of truth), index.ts
+  routes/        # Hono handlers
+  services/      # Business logic
+  middleware/    # auth.ts
+  utils/         # jwt.ts, password.ts
+
+apps/web/src/
+  pages/         # Vistas (login, register, dashboard)
+  components/    # UI reutilizable
+  contexts/      # React context (auth-context.tsx)
+  lib/api/       # Módulos por feature (auth-api.ts, etc.)
+  lib/hooks/     # Custom hooks
+```
+
+## Comandos Útiles
+```bash
+bun run dev                        # Todo el monorepo
+docker compose up postgres -d      # Solo postgres
+bun test --env-file .env           # Tests API
+bun run db:push                    # Sync schema
+```
