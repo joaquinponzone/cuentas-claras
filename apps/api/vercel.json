@@ -1,6 +1,7 @@
 {
   "framework": null,
-  "buildCommand": "mkdir -p api && bun x esbuild src/vercel.ts --bundle --platform=node --format=cjs --outfile=api/index.js",
+  "buildCommand": "mkdir -p api && bun x esbuild src/vercel.ts --bundle --platform=node --format=cjs --outfile=api/index.js && mkdir -p public",
+  "outputDirectory": "public",
   "installCommand": "cd ../.. && bun install",
   "rewrites": [
     { "source": "/(.*)", "destination": "/api" }
