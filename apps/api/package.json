@@ -2,7 +2,6 @@
   "name": "@cuentas-claras/api",
   "version": "0.0.1",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "bun --watch run src/index.ts",
     "build": "bun build ./src/index.ts --outdir ./dist --target bun",

@@ -1,4 +1,5 @@
 {
+  "buildCommand": "bun x esbuild api/index.ts --bundle --platform=node --outfile=api/index.js",
   "installCommand": "cd ../.. && bun install",
   "rewrites": [
     { "source": "/(.*)", "destination": "/api" }
